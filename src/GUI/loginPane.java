@@ -1,9 +1,10 @@
 package GUI;
 
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import userDataStructure.managerNode;
+import userDataStructure.providerNode;
 import userDataStructure.userNode;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -24,7 +25,7 @@ import java.io.Serializable;
 /**
  * Created by Spaghetti on 4/25/2016.
  */
-public class loginPane extends StackPane implements Serializable{
+public class loginPane extends StackPane {
     private TextField managerTextField;
     private TextField providerTextField;
     private String textInField;
@@ -93,8 +94,7 @@ public class loginPane extends StackPane implements Serializable{
                             textInField = providerTextField.getText();
                         }
 
-                        //System.out.println(textInField); //TEST
-                        Retrieved = GUIRoot.userStructure.Retrieve(Integer.parseInt(textInField), whichSide);
+                        Retrieved = GUIRoot.getUserStructure().Retrieve(Integer.parseInt(textInField), whichSide);
                         //attempt to retrieve an account node of a manager or provider based on whichside.
 
                         //TEST USER RETRIEVAL
@@ -102,7 +102,12 @@ public class loginPane extends StackPane implements Serializable{
                             getChildren().remove(errorMessage); //ensure that this isn't already added to the GUI.
                             getChildren().add(errorMessage);
                         } else {
-                            System.out.println(textInField + " found.");
+                            if(whichSide == 0) { //manager case
+                                GUIRoot.swapToManagerPane((managerNode)Retrieved);
+                            }
+                            else{ //provider case
+                                GUIRoot.swapToProviderPane((providerNode)Retrieved);
+                            }
                         }
                     } catch (Exception e) {
                         getChildren().remove(errorMessage); //ensure that this object isn't already added.

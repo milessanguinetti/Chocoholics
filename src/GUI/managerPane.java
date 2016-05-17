@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * Created by Spaghetti on 5/2/2016.
  */
-public class managerPane extends StackPane implements Serializable{
+public class managerPane extends StackPane {
 
     //a class for adding clickable buttons to this UI pane.
     /*buttonFunction identities are as follows:
